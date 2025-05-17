@@ -1,4 +1,5 @@
 package com.lrs.dasparlament
+
 import android.content.Context
 import android.os.Environment
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,11 @@ suspend fun downloadPdf(
         try {
             val url = URL(fileUrl)
             connection = url.openConnection() as HttpURLConnection
+
+            // *** OPTIONAL: Set connection timeouts for large files ***
+            connection.connectTimeout = 15000 // 15 seconds for connection establishment
+            connection.readTimeout = 30000 // 30 seconds for reading data
+
             connection.connect()
 
             // Check for successful response
@@ -42,6 +48,15 @@ suspend fun downloadPdf(
                 println("Server returned HTTP ${connection.responseCode} ${connection.responseMessage}")
                 return@withContext null
             }
+
+            // *** NEW: Log Content-Length ***
+            val contentLength = connection.contentLength
+            if (contentLength > 0) {
+                println("Expected file size (Content-Length): ${contentLength / 1024} KB")
+            } else {
+                println("Content-Length header not found or is 0.")
+            }
+
 
             // Determine the output filename
             val outputFileName = fileName ?: fileUrl.substring(fileUrl.lastIndexOf('/') + 1)
@@ -70,12 +85,25 @@ suspend fun downloadPdf(
             val inputStream = connection.inputStream
             val buffer = ByteArray(1024)
             var len1: Int
+            var totalBytesRead = 0L // To track progress
 
             while (inputStream.read(buffer).also { len1 = it } != -1) {
                 fos.write(buffer, 0, len1)
+                totalBytesRead += len1
+                // *** NEW: Log progress periodically (e.g., every 1MB) ***
+                if (contentLength > 0 && totalBytesRead % (1024 * 1024) == 0L) { // Log every 1MB
+                    println("Downloaded ${totalBytesRead / (1024 * 1024)} MB of ${contentLength / (1024 * 1024)} MB")
+                }
             }
 
             println("PDF downloaded successfully to: ${downloadedFile.absolutePath}")
+            println("Actual downloaded size: ${downloadedFile.length() / 1024} KB") // Verify final size
+
+            // *** NEW: Compare expected vs. actual size ***
+            if (contentLength > 0 && downloadedFile.length() != contentLength.toLong()) {
+                println("WARNING: Downloaded size (${downloadedFile.length()} bytes) does not match expected size (${contentLength} bytes).")
+            }
+
             return@withContext downloadedFile
 
         } catch (e: IOException) {
@@ -97,5 +125,8 @@ suspend fun downloadPdf(
  */
 fun getPdfUrl(): String {
     // In a real scenario, this might fetch the URL from a server, user input, etc.
-    return "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // A sample PDF URL
+    // Make sure this URL is for your 10MB PDF.
+    return "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // A sample PDF URL (this is a small one!)
+    // If your 10MB PDF is on a different server, replace this.
+    // Example: "https://example.com/large_document.pdf"
 }

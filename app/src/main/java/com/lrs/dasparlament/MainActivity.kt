@@ -1,5 +1,6 @@
 package com.lrs.dasparlament
 
+import android.content.Context
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -9,7 +10,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.lrs.dasparlament.databinding.ActivityMainBinding
-import com.lrs.dasparlament.downloadPdf
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
