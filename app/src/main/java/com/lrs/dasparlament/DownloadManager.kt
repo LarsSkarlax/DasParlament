@@ -99,10 +99,3 @@ fun getPdfUrl(): String {
     // In a real scenario, this might fetch the URL from a server, user input, etc.
     return "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // A sample PDF URL
 }
-
-/**
- * Example of how to generate a filename if needed.
- */
-fun generateUniqueFileName(): String {
-    return "downloaded_document_${System.currentTimeMillis()}.pdf"
-}

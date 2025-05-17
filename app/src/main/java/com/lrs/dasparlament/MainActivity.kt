@@ -4,10 +4,13 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.lrs.dasparlament.databinding.ActivityMainBinding
+import com.lrs.dasparlament.downloadPdf
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,9 +36,24 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
+            lifecycleScope.launch {
+                doSomething()
+            }
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
+
         }
+
+
+    }
+
+    private suspend fun doSomething() {
+        downloadPdf(
+            fileUrl = "https://www.das-parlament.de/epaper/2025/4_5/epaper/ausgabe.pdf",
+            context = this,
+            folderName = "ausgaben",
+            fileName = "4_5.pdf"
+        )
     }
 }
