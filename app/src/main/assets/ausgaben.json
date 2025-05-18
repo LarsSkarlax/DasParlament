@@ -1,0 +1,10 @@
+
+{
+  "_comment": "Hier die Daten der Ausgaben. Bitte durch Generator ersetzen sobald das Muster der Jahresnummern klar ist",
+  "years": [
+    {
+      "year": 2025,
+      "events": ["4_5", "6_7", "8_9", "10_11", "12", "13", "14_15", "16_19", "20", "21"]
+    }
+  ]
+}

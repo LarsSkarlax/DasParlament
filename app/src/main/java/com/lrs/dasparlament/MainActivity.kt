@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.filament.View
 import com.lrs.dasparlament.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
@@ -37,9 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             lifecycleScope.launch {
-                doSomething()
+                //doSomething()
             }
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            val count = getEventCountForYear(this, 2025)
+            Snackbar.make(view, "Number: $count", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
 
@@ -56,4 +58,11 @@ class MainActivity : AppCompatActivity() {
             fileName = "4_5.pdf"
         )
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+
 }

@@ -118,15 +118,3 @@ suspend fun downloadPdf(
         }
     }
 }
-
-/**
- * Example of how to get a URL from another function.
- * Replace this with your actual function.
- */
-fun getPdfUrl(): String {
-    // In a real scenario, this might fetch the URL from a server, user input, etc.
-    // Make sure this URL is for your 10MB PDF.
-    return "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" // A sample PDF URL (this is a small one!)
-    // If your 10MB PDF is on a different server, replace this.
-    // Example: "https://example.com/large_document.pdf"
-}
