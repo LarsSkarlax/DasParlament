@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        adjustStatusBarIconsToTheme(this)
 
         val navView: BottomNavigationView = binding.navView
 
