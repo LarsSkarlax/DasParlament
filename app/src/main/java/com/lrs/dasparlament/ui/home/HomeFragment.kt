@@ -78,10 +78,12 @@ class HomeFragment : Fragment() {
 
 
                     // Create Intent to view the PDF
-                    val intent: Intent = Intent(requireContext(), DocumentActivity::class.java)
+                    val intent = Intent(requireContext(), DocumentActivity::class.java)
                     intent.setAction(Intent.ACTION_VIEW)
                     intent.setData(pdfUri)
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     startActivity(intent)
+
 
                 } catch (e: Exception) {
                     Log.e("PDF_VIEWER", "Error opening PDF: ${e.message}", e) // Debug log
