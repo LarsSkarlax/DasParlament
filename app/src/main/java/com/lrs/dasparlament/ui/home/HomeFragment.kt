@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,16 +34,32 @@ class HomeFragment : Fragment() {
         .root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState) // Call super.onViewCreated
+        super.onViewCreated(view, savedInstanceState)
 
-        // Observe the list of PDF names (this part was already there and working)
-        viewModel.pdfNames.observe(viewLifecycleOwner) { names ->
-            binding.pdfListView.adapter = ArrayAdapter(
+        // Observe two-line PDF items
+        viewModel.pdfItems.observe(viewLifecycleOwner) { items ->
+            // Use a custom ArrayAdapter to bind title and subtitle into simple_list_item_2
+            val adapter = object : ArrayAdapter<HomeViewModel.PdfItem>(
                 requireContext(),
-                android.R.layout.simple_list_item_1,
-                names
-            )
+                android.R.layout.simple_list_item_2,
+                items
+            ) {
+                override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                    // Inflate the built-in two-text layout if needed
+                    val row = convertView ?: LayoutInflater.from(context)
+                        .inflate(android.R.layout.simple_list_item_2, parent, false)
+
+                    val item = getItem(position)!!
+                    // text1 and text2 are IDs in simple_list_item_2
+                    row.findViewById<TextView>(android.R.id.text1).text = item.title
+                    row.findViewById<TextView>(android.R.id.text2).text = item.subtitle
+
+                    return row
+                }
+            }
+            binding.pdfListView.adapter = adapter
         }
+
 
         // On click, delegate back to ViewModel (this part was already there and working)
         binding.pdfListView.setOnItemClickListener { _, _, pos, _ ->
