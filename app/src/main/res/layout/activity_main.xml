@@ -40,7 +40,7 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/stat_sys_download"
+        app:srcCompat="@drawable/sync_24dp_1f1f1f_fill0_wght400_grad0_opsz24"
         />
 
 

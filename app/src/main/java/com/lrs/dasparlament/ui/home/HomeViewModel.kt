@@ -3,6 +3,7 @@
 package com.lrs.dasparlament.ui.home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,8 @@ import com.lrs.dasparlament.downloadPdf
 import com.lrs.dasparlament.getEventAtIndexForYear
 import com.lrs.dasparlament.getEventCountForYear
 import com.lrs.dasparlament.getUrl
+import com.lrs.dasparlament.getYearAtIndex
+import com.lrs.dasparlament.getYearCount
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -40,15 +43,31 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
      * Here subtitle is derived from the download URL for demonstration.
      */
     private fun loadPdfItems() {
-        val year = 2025
-        val count = getEventCountForYear(getApplication(), year)
-        val list = List(count) { index ->
-            val title = getEventAtIndexForYear(getApplication(), year, index)
-            val subtitle = getUrl(title.toString()) // e.g. display URL or other info
-            PdfItem(title.toString(), subtitle)
+        val context = getApplication<Application>()
+        val yearCount = getYearCount(context)
+        val list = mutableListOf<PdfItem>()
+
+        // Loop through years in original order (e.g., 2025, 2024, ...)
+        for (i in 0 until yearCount) {
+            val year = getYearAtIndex(context, i) ?: continue
+            val eventCount = getEventCountForYear(context, year)
+
+            // Loop through events in reverse order (last event first)
+            for (index in eventCount - 1 downTo 0) {
+                val event = getEventAtIndexForYear(context, year, index)
+
+                val title = "$year: $index"       // e.g., "2025: 3"
+                val subtitle = event.toString()   // e.g., "10_11"
+                list.add(PdfItem(title, subtitle))
+            }
         }
+
         _pdfItems.value = list
     }
+
+
+
+
 
     /**
      * Called when the user selects an item at [index].
@@ -63,7 +82,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         // Prepare download params
-        val fileUrl = getUrl(selected.title)
+        val year = selected.title.split(":")[0]
+        val fileUrl = getUrl(selected.subtitle, year)
+        Log.d("MyApp", "File URL: $fileUrl")
+        Log.d("MyApp", "File URL: $fileUrl")
+        Log.d("MyApp", "File URL: $fileUrl")
         val folder = "parlament_pdfs"
         val filename = "${selected.title}.pdf"
 

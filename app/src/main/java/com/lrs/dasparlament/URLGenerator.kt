@@ -25,8 +25,23 @@ fun getEventAtIndexForYear(context: Context, targetYear: Int, index: Int): Strin
     return if (events != null && index in events.indices) events[index] else null
 }
 
-fun getUrl(pdfIndex: String): String {
-    val prefix = "https://www.das-parlament.de/epaper/2025/"
+fun getYearCount(context: Context): Int {
+    val yearList = readYearsFromAssets(context)
+    return yearList.years.size
+}
+
+fun getYearAtIndex(context: Context, index: Int): Int? {
+    val yearList = readYearsFromAssets(context)
+    return if (index in yearList.years.indices) {
+        yearList.years[index].year
+    } else {
+        null
+    }
+}
+
+
+fun getUrl(pdfIndex: String, year: String): String {
+    val prefix = "https://www.das-parlament.de/epaper/"
     val pastfix = "/epaper/ausgabe.pdf"
-    return "$prefix$pdfIndex$pastfix"
+    return "$prefix$year/$pdfIndex$pastfix"
 }

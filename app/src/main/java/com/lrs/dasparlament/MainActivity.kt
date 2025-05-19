@@ -38,26 +38,14 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
-            lifecycleScope.launch {
-                //doSomething()
-            }
             val count = getEventCountForYear(this, 2025)
-            Snackbar.make(view, "Number: $count", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Already up to date!", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
 
         }
 
 
-    }
-
-    private suspend fun doSomething() {
-        downloadPdf(
-            fileUrl = "https://www.das-parlament.de/epaper/2025/4_5/epaper/ausgabe.pdf",
-            context = this,
-            folderName = "ausgaben",
-            fileName = "4_5.pdf"
-        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

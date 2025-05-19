@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.artifex.mupdf.viewer.DocumentActivity
 import com.google.android.material.snackbar.Snackbar
+import com.lrs.dasparlament.R
 import com.lrs.dasparlament.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -70,7 +71,7 @@ class HomeFragment : Fragment() {
         viewModel.snackbarMessage.observe(viewLifecycleOwner) { message ->
             message?.let {
                 Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG) // Use binding.root as the anchor view
-                    // .setAnchorView(R.id.fab) // If you have a FAB, uncomment this and ensure R.id.fab is in your layout
+                    .setAnchorView(R.id.fab) // If you have a FAB, uncomment this and ensure R.id.fab is in your layout
                     .show()
                 viewModel.doneShowingSnackbar() // Consume the event
                 Log.d("PDF_VIEWER", "Snackbar message shown: $it")
