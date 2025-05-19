@@ -88,7 +88,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
      * to clear the event and prevent re-triggering.
      */
     fun doneOpeningPdf() {
-        _openPdfEvent.value = null
+        ;
     }
 
     /**

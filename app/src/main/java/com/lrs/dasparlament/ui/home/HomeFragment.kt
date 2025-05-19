@@ -75,12 +75,13 @@ class HomeFragment : Fragment() {
                     Log.d("PDF_VIEWER", "FileProvider URI generated: $pdfUri") // Debug log
 
 
-
+                    val fileUri = Uri.fromFile(pdfFile)                // <-- plain file:// URI
+                    Log.d("PDF_VIEWER", "Using direct Uri: $fileUri")
 
                     // Create Intent to view the PDF
                     val intent = Intent(requireContext(), DocumentActivity::class.java)
                     intent.setAction(Intent.ACTION_VIEW)
-                    intent.setData(pdfUri)
+                    intent.setData(fileUri)
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     startActivity(intent)
 
