@@ -57,4 +57,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.kotlinx.serialization.json)
     implementation("com.google.code.gson:gson:2.11.0")
+    implementation("com.artifex.mupdf:viewer:1.16.1")
 }

@@ -1,20 +1,19 @@
 package com.lrs.dasparlament.ui.home
 
-import android.content.Intent // Import Intent
-import android.net.Uri      // Import Uri
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.content.FileProvider // Import FileProvider
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe // Use androidx.lifecycle.Observer for explicit import if needed
-import com.google.android.material.snackbar.Snackbar // Import Snackbar
-import com.lrs.dasparlament.R
+import com.artifex.mupdf.viewer.DocumentActivity
+import com.google.android.material.snackbar.Snackbar
 import com.lrs.dasparlament.databinding.FragmentHomeBinding
-import android.util.Log // For debugging logs
 
 class HomeFragment : Fragment() {
 
@@ -75,23 +74,14 @@ class HomeFragment : Fragment() {
                     )
                     Log.d("PDF_VIEWER", "FileProvider URI generated: $pdfUri") // Debug log
 
+
+
+
                     // Create Intent to view the PDF
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        setDataAndType(pdfUri, "application/pdf")
-                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant temp permission to viewer
-                    }
-
-                    // Check if there's an app to handle this intent
-                    val resolvedActivity = intent.resolveActivity(requireContext().packageManager)
-                    Log.d("PDF_VIEWER", "Resolved Activity: $resolvedActivity") // Debug log
-
-                    if (resolvedActivity != null) {
-                        startActivity(intent)
-                        Log.d("PDF_VIEWER", "startActivity called for PDF.") // Debug log
-                    } else {
-                        Log.w("PDF_VIEWER", "No PDF viewer app found on device.") // Debug log
-                        Snackbar.make(binding.root, "No PDF viewer app found.", Snackbar.LENGTH_LONG).show()
-                    }
+                    val intent: Intent = Intent(requireContext(), DocumentActivity::class.java)
+                    intent.setAction(Intent.ACTION_VIEW)
+                    intent.setData(pdfUri)
+                    startActivity(intent)
 
                 } catch (e: Exception) {
                     Log.e("PDF_VIEWER", "Error opening PDF: ${e.message}", e) // Debug log
