@@ -16,3 +16,14 @@ data class YearData(
 data class YearList(
     val years: List<YearData>
 )
+
+@Serializable
+data class Ausgabe(
+    val datum: String,
+    val nummer: String,
+    val titel: String,
+    val jahr: String,
+    val browserLink: String,
+    val pdfLink: String,
+    val vorschauBild: String
+)

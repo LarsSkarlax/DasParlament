@@ -58,4 +58,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("com.artifex.mupdf:viewer:1.16.1")
+    implementation("org.jsoup:jsoup:1.17.2")
 }
