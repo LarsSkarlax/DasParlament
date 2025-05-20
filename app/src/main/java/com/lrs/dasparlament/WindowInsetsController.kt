@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.res.Configuration
 import androidx.core.view.WindowCompat
 
+
+// Sorgt dafür dass die Android Statusbar nicht dieselbe Farben hat wie der AppHintergrund
 fun adjustStatusBarIconsToTheme(activity: Activity) {
     val window = activity.window
     val decorView = window.decorView
