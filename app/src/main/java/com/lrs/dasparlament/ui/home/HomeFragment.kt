@@ -106,7 +106,7 @@ class HomeFragment : Fragment() {
 
                 } catch (e: Exception) {
                     Log.e("PDF_VIEWER", "Error opening PDF: ${e.message}", e) // Debug log
-                    Snackbar.make(binding.root, "Error opening PDF: ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, "Error opening PDF: Ausgabe ${e.localizedMessage}", Snackbar.LENGTH_LONG).show()
                 } finally {
                     viewModel.doneOpeningPdf() // Consume the event even if there was an error
                     Log.d("PDF_VIEWER", "doneOpeningPdf called.") // Debug log

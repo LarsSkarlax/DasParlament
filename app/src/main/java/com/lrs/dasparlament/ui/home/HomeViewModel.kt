@@ -91,7 +91,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val filename = "${selected.title}.pdf"
 
         viewModelScope.launch {
-            _snackbarMessage.value = "Downloading ${selected.title}..."
+            _snackbarMessage.value = "Downloading Ausgabe ${selected.title}..."
             val downloaded = downloadPdf(
                 context = getApplication(),
                 fileUrl = fileUrl,
@@ -100,7 +100,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             )
             if (downloaded != null) {
                 _openPdfEvent.value = downloaded
-                _snackbarMessage.value = "${selected.title} downloaded!"
+                _snackbarMessage.value = "Ausgabe ${selected.title} downloaded!"
             } else {
                 _snackbarMessage.value = "Failed to download ${selected.title}."
             }
