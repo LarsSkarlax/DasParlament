@@ -79,6 +79,13 @@ suspend fun downloadPdf(
                 }
             }
 
+            // Prüfen, ob die Datei schon existiert
+            val existingFile = File(downloadDir, outputFileName)
+            if (existingFile.exists()) {
+                println("File already exists, returning existing file: ${existingFile.absolutePath}")
+                return@withContext existingFile
+            }
+            
             downloadedFile = File(downloadDir, outputFileName)
             fos = FileOutputStream(downloadedFile)
 
