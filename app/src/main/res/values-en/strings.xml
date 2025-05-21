@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Das Parlament</string>
+    <string name="language_german">German</string>
+    <string name="language_english">English</string>
+    <string name="language_choose">Choose language</string>
+    <string name="title_home">Home</string>
+    <string name="title_settings">Settings</string>
+    <string name="cover_image">Cover-Image</string>
+    <string name="dark_mode_subtitle">Enable the dark mode</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="further_settings">There are currently no further settings. So just enjoy simplicity :)</string>
+    <string name="language_subtitle">Choose from the available languages</string>
+</resources>

@@ -1,6 +1,8 @@
 package com.lrs.dasparlament
 
+import android.content.Context
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.lrs.dasparlament.databinding.ActivityMainBinding
 import com.lrs.dasparlament.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,6 +67,22 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    // In MainActivity.kt
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(newBase)
+        val language = prefs.getString("app_language", "de") ?: "de"
+        val context = updateLocale(newBase, language)
+        super.attachBaseContext(context)
+    }
+
+    fun updateLocale(context: Context, language: String): Context {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = context.resources.configuration
+        config.setLocale(locale)
+        return context.createConfigurationContext(config)
     }
 
     override fun onSupportNavigateUp(): Boolean {

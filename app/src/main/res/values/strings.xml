@@ -1,6 +1,14 @@
+
 <resources>
     <string name="app_name">Das Parlament</string>
-    <string name="title_home">Home</string>
-    <string name="title_settings">Settings</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_english">Englisch</string>
+    <string name="language_choose">Sprache wählen</string>
+    <string name="title_home">Start</string>
+    <string name="dark_mode">Dunkler Modus</string>
+    <string name="dark_mode_subtitle">Aktiviere den dunklen Modus für die App</string>
+    <string name="title_settings">Einstellungen</string>
     <string name="cover_image">Cover-Bild</string>
+    <string name="further_settings">Aktuell gibt es keine weiteren Einstellungen</string>
+    <string name="language_subtitle">Wähle aus den verfügbaren Sprachen</string>
 </resources>
