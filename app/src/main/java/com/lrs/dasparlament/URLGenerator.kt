@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.annotations.SerializedName
 
 
-// in UrlGenerator.kt oder in einer neuen Datei models.kt
+
 data class Ausgabe(
     val title: String,
     @SerializedName("date_published") val datePublished: String,
