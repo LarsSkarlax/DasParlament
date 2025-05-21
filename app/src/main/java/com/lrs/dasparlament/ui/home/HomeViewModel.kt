@@ -2,6 +2,7 @@
 package com.lrs.dasparlament.ui.home
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -20,7 +21,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val title: String,
         val subtitle: String,
         val year: Int,
-        val ausgabeNumber: String
+        val ausgabeNumber: String,
+        val coverImageUrl: String
     )
 
     // LiveData list of PdfItem objects (two-line entries)
@@ -39,9 +41,43 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         loadPdfItems()
     }
 
+    fun makeAbsoluteUri(relative: String): String {
+        val baseUri = Uri.parse("https://www.das-parlament.de")
+        Log.d("makeAbsoluteUri", "Input: $relative")
+
+        val result = when {
+            relative.startsWith("http", true) -> {
+                Log.d("makeAbsoluteUri", "Detected full URL: $relative")
+                relative
+            }
+            relative.startsWith("//") -> {
+                val fullUri = "https:$relative"
+                Log.d("makeAbsoluteUri", "Protocol-relative URL detected. Converted to: $fullUri")
+                fullUri
+            }
+            else -> {
+                val builtUri = baseUri.buildUpon()
+                    .encodedPath(relative.trimStart('/'))
+                    .build()
+                    .toString()
+                Log.d("makeAbsoluteUri", "Relative path converted to: $builtUri")
+                builtUri
+            }
+        }
+
+        Log.d("makeAbsoluteUri", "Result: $result")
+        return result
+    }
+
+
+
+
+
     /**
      * Load PDF titles and subtitles into _pdfItems using the new JSON model.
      */
+
+
     private fun loadPdfItems() {
         val context = getApplication<Application>()
         // Read all Ausgaben from assets
@@ -52,7 +88,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 title = a.title,
                 subtitle = "${a.yearPublished}:${a.ausgabeNumber}",
                 year = a.yearPublished,
-                ausgabeNumber = a.ausgabeNumber
+                ausgabeNumber = a.ausgabeNumber,
+                coverImageUrl  = makeAbsoluteUri(a.cover_image)
             )
         }
         val sorted = list.sortedWith(

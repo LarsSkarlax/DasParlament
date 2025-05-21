@@ -8,7 +8,6 @@
         <item name="colorOnSecondary">#FFFFFF</item>
         <item name="android:windowBackground">#FFFFFF</item>
         <item name="android:textColorPrimary">#000000</item>
-        
     </style>
 
 </resources>

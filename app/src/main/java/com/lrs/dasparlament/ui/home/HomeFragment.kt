@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.lrs.dasparlament.R
 import com.lrs.dasparlament.databinding.FragmentHomeBinding
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 
 class HomeFragment : Fragment() {
 
@@ -51,13 +53,17 @@ class HomeFragment : Fragment() {
                         .inflate(R.layout.list_item_two_line, parent, false)
 
                     val item = getItem(position)!!
-                    row.findViewById<TextView>(R.id.text1).apply {
-                        text = item.title
-                        // textSize definierst du ja schon im XML
-                    }
-                    row.findViewById<TextView>(R.id.text2).apply {
-                        text = item.subtitle
-                    }
+                    row.findViewById<TextView>(R.id.text1).text = item.title
+                    row.findViewById<TextView>(R.id.text2).text = item.subtitle
+
+                    val imageView = row.findViewById<ImageView>(R.id.coverImageView)
+                    Glide.with(context)
+                        .load(item.coverImageUrl)
+                        .placeholder(R.drawable.ic_placeholder) // Eigenes Platzhalter-Drawable
+                        .error(R.drawable.ic_error)             // Eigenes Fehler-Drawable
+                        .into(imageView)
+
+
                     return row
                 }
             }

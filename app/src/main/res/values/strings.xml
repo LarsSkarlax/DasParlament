@@ -2,4 +2,5 @@
     <string name="app_name">Das Parlament</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Settings</string>
+    <string name="cover_image">Cover-Bild</string>
 </resources>

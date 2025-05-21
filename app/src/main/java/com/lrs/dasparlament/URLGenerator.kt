@@ -1,6 +1,7 @@
 package com.lrs.dasparlament
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.google.android.filament.View
 import com.google.android.material.snackbar.Snackbar
@@ -15,9 +16,10 @@ data class Ausgabe(
     val title: String,
     @SerializedName("date_published") val datePublished: String,
     @SerializedName("year_published") val yearPublished: Int,
-    @SerializedName("cover_image") val coverImage: String,
-    @SerializedName("ausgabe_number") val ausgabeNumber: String
+    @SerializedName("ausgabe_number") val ausgabeNumber: String,
+    @SerializedName("cover_image") val cover_image: String,
 )
+
 
 
 
