@@ -1,16 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.DasParlament" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+    <style name="Theme.DasParlament" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#E2DEF0</item>
+        <item name="colorOnPrimary">#1E008D</item>
+        <item name="colorPrimaryContainer">#20028E</item>
+        <item name="colorSecondary">#D40000</item> <!-- Red Accent -->
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:windowBackground">#212121</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+
     </style>
+
+
 </resources>
