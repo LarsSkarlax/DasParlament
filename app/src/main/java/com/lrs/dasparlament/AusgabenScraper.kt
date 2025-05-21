@@ -1,7 +1,6 @@
 package com.lrs.dasparlament
 
 import android.content.Context
-import com.lrs.dasparlament.downloadHtml
 import org.json.JSONArray
 import org.json.JSONObject
 import org.jsoup.Jsoup
