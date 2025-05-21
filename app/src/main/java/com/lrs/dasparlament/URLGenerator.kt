@@ -1,13 +1,14 @@
 package com.lrs.dasparlament
 
 import android.content.Context
+import android.util.Log
 import com.google.android.filament.View
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import com.google.gson.annotations.SerializedName
-
+import java.io.File
 
 
 data class Ausgabe(
@@ -21,8 +22,15 @@ data class Ausgabe(
 
 
 fun readAusgabenFromAssets(context: Context): List<Ausgabe> {
-    val jsonString = context.assets.open("ausgaben.json")
-        .bufferedReader().use { it.readText() }
+    val file = File(context.filesDir, "ausgaben.json")
+    val jsonString = if (file.exists()) {
+        file.readText()
+    } else {
+        Log.d("LOADING", "Had to use ASSETS")
+        Log.d("LOADING", "Had to use ASSETS")
+        Log.d("LOADING", "Had to use ASSETS")
+        context.assets.open("ausgaben.json").bufferedReader().use { it.readText() }
+    }
 
     val gson = Gson()
     val jsonElement = JsonParser.parseString(jsonString)

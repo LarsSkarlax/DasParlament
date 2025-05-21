@@ -16,6 +16,7 @@ import com.artifex.mupdf.viewer.DocumentActivity
 import com.google.android.material.snackbar.Snackbar
 import com.lrs.dasparlament.R
 import com.lrs.dasparlament.databinding.FragmentHomeBinding
+import androidx.fragment.app.activityViewModels
 
 class HomeFragment : Fragment() {
 
@@ -24,7 +25,7 @@ class HomeFragment : Fragment() {
 
     // Using by viewModels() to get the ViewModel instance
     // ViewModelProvider will automatically use AndroidViewModelFactory because MyViewModel extends AndroidViewModel
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

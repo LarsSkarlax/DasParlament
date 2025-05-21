@@ -2,6 +2,7 @@ package com.lrs.dasparlament
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +11,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.lrs.dasparlament.databinding.ActivityMainBinding
+import com.lrs.dasparlament.ui.home.HomeViewModel
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +47,15 @@ class MainActivity : AppCompatActivity() {
 
                     // Call the function to extract & save JSON
                     processHtmlAndSave(html, context = this@MainActivity)
-
+                    Log.d("UPDATE", "NEXT IS REFRESH")
+                    Log.d("UPDATE", "NEXT IS REFRESH")
+                    Log.d("UPDATE", "NEXT IS REFRESH")
+                    homeViewModel.refreshHomeList()
                     Snackbar.make(view, "Ausgaben aktualisiert!", Snackbar.LENGTH_LONG)
                         .setAnchorView(R.id.fab)
                         .show()
                 }
+                Log.d("CLOSING", "LIFECYCLESCOPE FINISHED")
             }
             Snackbar.make(view, "Updating...", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)

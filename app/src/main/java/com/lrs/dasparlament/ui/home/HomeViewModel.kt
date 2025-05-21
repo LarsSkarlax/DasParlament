@@ -63,7 +63,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 .thenByDescending { it.ausgabeNumber }
         )
-        _pdfItems.value = sorted
+        _pdfItems.postValue(sorted)
     }
 
     /**
@@ -113,4 +113,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun doneShowingSnackbar() {
         _snackbarMessage.value = null
     }
+
+    fun refreshHomeList() {
+        Log.d("CALLED", "refreshHomeList called successfully")
+        loadPdfItems()
+    }
+
 }
