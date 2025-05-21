@@ -58,9 +58,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val sorted = list.sortedWith(
             compareByDescending<PdfItem> { it.year }
                 .thenByDescending { item ->
-                    item.ausgabeNumber.filter { it.isDigit() }
-                        .toIntOrNull() ?: 0
+                    // Extract numeric prefix, e.g., "10a" -> 10, "02" -> 2
+                    item.ausgabeNumber.takeWhile { it.isDigit() }.toIntOrNull() ?: 0
                 }
+                .thenByDescending { it.ausgabeNumber }
         )
         _pdfItems.value = sorted
     }
