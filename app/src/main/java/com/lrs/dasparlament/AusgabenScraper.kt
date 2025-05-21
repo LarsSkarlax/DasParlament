@@ -1,6 +1,7 @@
 package com.lrs.dasparlament
 
 import android.content.Context
+import android.util.Log
 import org.json.JSONArray
 import org.json.JSONObject
 import org.jsoup.Jsoup
@@ -49,4 +50,6 @@ fun processHtmlAndSave(html: String, context: Context) {
     context.openFileOutput("ausgaben.json", Context.MODE_PRIVATE).use { fos ->
         fos.write(arr.toString(2).toByteArray())
     }
+
+    Log.d("FINISHED", "Finisehd html processing succesfully and wrote to file")
 }
