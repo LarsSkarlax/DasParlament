@@ -1,66 +1,53 @@
 package com.lrs.dasparlament
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import android.content.Context
+import com.lrs.dasparlament.downloadHtml
+import org.json.JSONArray
+import org.json.JSONObject
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-@Serializable
-data class Ausgabe(
-    val datum: String,
-    val nummer: String,
-    val titel: String,
-    val jahr: String,
-    val browserLink: String,
-    val pdfLink: String,
-    val vorschauBild: String
-)
+fun processHtmlAndSave(html: String, context: Context) {
+    val doc = Jsoup.parse(html)
+    val arr = JSONArray()
 
-fun fetchAusgabenUndSpeichernAlsJson(url: String, outputFile: String) {
-    val doc: Document = Jsoup.connect(url).get()
+    val items = doc.select("div.col.col-12.col-sm-6.col-md-4.col-lg-3")
 
-    val ausgaben = doc.select("div.epaper").map { epaper ->
-        val headline = epaper.selectFirst("div.epaper__headline")?.text()?.trim() ?: ""
-        val text = epaper.selectFirst("div.epaper__text")?.text()?.trim() ?: ""
+    items.forEach { el ->
+        val rawHeadline = el.selectFirst("div.epaper__headline")?.text()?.trim() ?: ""
+        val parts = rawHeadline.split("|")
+        val dateStr = parts.getOrNull(0)?.trim()
+        val issuePart = parts.getOrNull(1)?.trim()
 
-        val (datum, nummer) = parseDatumUndNummer(headline)
-        val jahr = datum.takeLast(4)
+        val sdfIn = SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY)
+        val sdfOut = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+        val publishedDate = dateStr?.let {
+            try { sdfOut.format(sdfIn.parse(it)!!) } catch (e: Exception) { it }
+        } ?: ""
 
-        val links = epaper.select("a.epaper__link")
-        val browserLink = "https://www.das-parlament.de" + (links.firstOrNull()?.attr("href") ?: "")
-        val pdfLink = "https://www.das-parlament.de" + (links.getOrNull(1)?.attr("href") ?: "")
+        val year = dateStr?.takeLast(4) ?: ""
+        val issueNumber = issuePart
+            ?.substringAfter("Ausgabe-Nr.")
+            ?.trim()
+            ?.replace("\\s+".toRegex(), "")
+            ?: ""
 
-        val bildPfad = epaper.selectFirst("div.epaper__image img")?.attr("src") ?: ""
-        val vorschauBild = "https://www.das-parlament.de$bildPfad"
+        val title = el.selectFirst("div.epaper__text")?.text()?.trim() ?: ""
+        val imgSrc = el.selectFirst("div.epaper__image img")?.attr("src") ?: ""
 
-        Ausgabe(
-            datum = datum,
-            nummer = nummer,
-            titel = text,
-            jahr = jahr,
-            browserLink = browserLink,
-            pdfLink = pdfLink,
-            vorschauBild = vorschauBild
-        )
+        val obj = JSONObject().apply {
+            put("title", title)
+            put("date_published", publishedDate)
+            put("year_published", year)
+            put("cover_image", imgSrc)
+            put("ausgabe_number", issueNumber)
+        }
+        arr.put(obj)
     }
 
-    val json = Json { prettyPrint = true }.encodeToString(ausgaben)
-    File(outputFile).writeText(json)
-
-    println("✅ ${ausgaben.size} Ausgaben erfolgreich als JSON gespeichert in: $outputFile")
-}
-
-fun parseDatumUndNummer(headline: String): Pair<String, String> {
-    val parts = headline.split("|")
-    val datum = parts.getOrNull(0)?.trim() ?: "Unbekannt"
-    val nummer = parts.getOrNull(1)?.trim()?.removePrefix("Ausgabe-Nr.")?.trim() ?: "?"
-    return datum to nummer
-}
-
-fun main() {
-    val url = "https://www.das-parlament.de/e-paper"
-    val outputFile = "@assets/ausgaben.json"
-    fetchAusgabenUndSpeichernAlsJson(url, outputFile)
+    // Write to internal storage
+    context.openFileOutput("ausgaben.json", Context.MODE_PRIVATE).use { fos ->
+        fos.write(arr.toString(2).toByteArray())
+    }
 }

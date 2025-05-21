@@ -38,23 +38,25 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Observe two-line PDF items
+
         viewModel.pdfItems.observe(viewLifecycleOwner) { items ->
-            // Use a custom ArrayAdapter to bind title and subtitle into simple_list_item_2
             val adapter = object : ArrayAdapter<HomeViewModel.PdfItem>(
                 requireContext(),
-                android.R.layout.simple_list_item_2,
+                R.layout.list_item_two_line,  // hier dein custom XML
                 items
             ) {
                 override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                    // Inflate the built-in two-text layout if needed
                     val row = convertView ?: LayoutInflater.from(context)
-                        .inflate(android.R.layout.simple_list_item_2, parent, false)
+                        .inflate(R.layout.list_item_two_line, parent, false)
 
                     val item = getItem(position)!!
-                    // text1 and text2 are IDs in simple_list_item_2
-                    row.findViewById<TextView>(android.R.id.text1).text = item.title
-                    row.findViewById<TextView>(android.R.id.text2).text = item.subtitle
-
+                    row.findViewById<TextView>(R.id.text1).apply {
+                        text = item.title
+                        // textSize definierst du ja schon im XML
+                    }
+                    row.findViewById<TextView>(R.id.text2).apply {
+                        text = item.subtitle
+                    }
                     return row
                 }
             }

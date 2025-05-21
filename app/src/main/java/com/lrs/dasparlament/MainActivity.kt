@@ -1,13 +1,18 @@
 package com.lrs.dasparlament
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.lrs.dasparlament.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,8 +39,20 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
-            getEventCountForYear(this, 2025)
-            Snackbar.make(view, "Already up to date!", Snackbar.LENGTH_LONG)
+            lifecycleScope.launch {
+                downloadHtml("https://www.das-parlament.de/e-paper") { html ->
+                    // Log and process the HTML
+                    Log.d("HTML is downloaded", html.take(500)) // Preview first 500 chars
+
+                    // Call the function to extract & save JSON
+                    processHtmlAndSave(html, context = this@MainActivity)
+
+                    Snackbar.make(view, "Ausgaben aktualisiert!", Snackbar.LENGTH_LONG)
+                        .setAnchorView(R.id.fab)
+                        .show()
+                }
+            }
+            Snackbar.make(view, "Updating...", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
 

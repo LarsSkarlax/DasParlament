@@ -18,12 +18,10 @@ data class YearList(
 )
 
 @Serializable
-data class Ausgabe(
-    val datum: String,
-    val nummer: String,
-    val titel: String,
+data class ZeitungsAusgabe(
     val jahr: String,
-    val browserLink: String,
-    val pdfLink: String,
-    val vorschauBild: String
+    val datum: String,
+    val titel: String,
+    val nummer: String,
+    val linkVorschaubild: String
 )

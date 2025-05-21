@@ -4,44 +4,50 @@ import android.content.Context
 import com.google.android.filament.View
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
+import com.google.gson.annotations.SerializedName
 
-fun readYearsFromAssets(context: Context): YearList {
+
+// in UrlGenerator.kt oder in einer neuen Datei models.kt
+data class Ausgabe(
+    val title: String,
+    @SerializedName("date_published") val datePublished: String,
+    @SerializedName("year_published") val yearPublished: Int,
+    @SerializedName("cover_image") val coverImage: String,
+    @SerializedName("ausgabe_number") val ausgabeNumber: String
+)
+
+
+
+fun readAusgabenFromAssets(context: Context): List<Ausgabe> {
     val jsonString = context.assets.open("ausgaben.json")
         .bufferedReader().use { it.readText() }
 
-    val type = object : TypeToken<YearList>() {}.type
-    return Gson().fromJson(jsonString, type)
-}
+    val gson = Gson()
+    val jsonElement = JsonParser.parseString(jsonString)
 
-fun getEventCountForYear(context: Context, targetYear: Int): Int {
-    val yearList = readYearsFromAssets(context)
-    return yearList.years.find { it.year == targetYear }?.events?.size ?: 0
-}
+    val ausgabeListType = object : TypeToken<List<Ausgabe>>() {}.type
 
-fun getEventAtIndexForYear(context: Context, targetYear: Int, index: Int): String? {
-    val yearList = readYearsFromAssets(context)
-    val events = yearList.years.find { it.year == targetYear }?.events
-    return if (events != null && index in events.indices) events[index] else null
-}
-
-fun getYearCount(context: Context): Int {
-    val yearList = readYearsFromAssets(context)
-    return yearList.years.size
-}
-
-fun getYearAtIndex(context: Context, index: Int): Int? {
-    val yearList = readYearsFromAssets(context)
-    return if (index in yearList.years.indices) {
-        yearList.years[index].year
-    } else {
-        null
+    return when {
+        // Fall 1: die Datei enthält direkt ein Array: [ { ... }, { ... } ]
+        jsonElement.isJsonArray -> {
+            gson.fromJson(jsonElement, ausgabeListType)
+        }
+        // Fall 2: die Datei enthält ein Objekt mit einem Feld "ausgaben": { "ausgaben": [ ... ] }
+        jsonElement.isJsonObject && jsonElement.asJsonObject.has("ausgaben") -> {
+            val arr = jsonElement.asJsonObject.getAsJsonArray("ausgaben")
+            gson.fromJson(arr, ausgabeListType)
+        }
+        // Fall 3: die Datei enthält nur ein einzelnes Ausgabe-Objekt: { "title": "...", ... }
+        jsonElement.isJsonObject -> {
+            // Wir packen es in eine Liste mit genau einem Element
+            listOf(gson.fromJson(jsonElement, Ausgabe::class.java))
+        }
+        else -> emptyList()
     }
 }
 
-
-fun getUrl(pdfIndex: String, year: String): String {
-    val prefix = "https://www.das-parlament.de/epaper/"
-    val pastfix = "/epaper/ausgabe.pdf"
-    return "$prefix$year/$pdfIndex$pastfix"
+fun getUrl(ausgabeNumber: String, year: Int): String {
+    return "https://www.das-parlament.de/epaper/$year/$ausgabeNumber/epaper/ausgabe.pdf"
 }
