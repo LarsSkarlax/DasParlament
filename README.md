@@ -9,14 +9,13 @@
 <!-- ![App Logo](assets/logo.png) -->
 <!-- ![Screenshot](assets/screenshot.png) -->
 
-> **DasParlament** is an unofficial Kotlin-based app for reading news and articles from the German newspaper **"Das Parlament"**.
+> **DasParlament** ist eine inoffizielle Kotlin-Android-App um die Zeitungsausgaben der deutschen Parlamentszeitung **"Das Parlament"** komfortabel zu lesen.
 
 ---
 
 ## Table of Contents
 
-- [About](#about)
-- [Features](#features)
+- [Funktionen](#funktionen)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -24,18 +23,17 @@
 - [License](#license)
 - [Contact](#contact)
 
-## About
+> **Wichtig:** Diese App steht in keinem Kontakt zu der Zeitung oder zu deren Herausgebern.
 
-This repository hosts a Kotlin-based app that provides access to news and articles from "Das Parlament".  
-> **Note:** This app is not affiliated with or endorsed by the official newspaper or its publishers.
+## English Information
 
-## Features
+This is an inofficall app for the german Newspaper *Das Parlament*. Since this app is for an german newspaper, i rewrote the README to be german as well. 
 
-- 📰 Browse the latest news from "Das Parlament"
-- ⚡ Built with Kotlin for Android
-- 📖 Integrated newspaper reader
-- 🌙 Dark Mode support (Material3 Design)
-- 🚀 Fast and intuitive UI
+## Funktionen
+
+- 📰 Lade alle Ausgaben von "Das Parlament" auf dein Handy
+- 📖 Nutze den integrierten PDF-Reader für mehr Komfort
+- 🌙 Dunkler Modus & Material3 Designsprache
 
 ## Getting Started
 
