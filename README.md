@@ -9,80 +9,55 @@
 <!-- ![App Logo](assets/logo.png) -->
 <!-- ![Screenshot](assets/screenshot.png) -->
 
-> **DasParlament** is an unofficial Kotlin-based app for reading news and articles from the German newspaper **"Das Parlament"**.
+> **DasParlament** ist eine inoffizielle Kotlin-Android-App um die Zeitungsausgaben der deutschen Parlamentszeitung **"Das Parlament"** komfortabel zu lesen.
 
 ---
 
 ## Table of Contents
 
-- [About](#about)
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Disclaimer](#disclaimer)
-- [License](#license)
-- [Contact](#contact)
+- [English information](#english-information)
+- [Funktionen](#funktionen)
+- [App-Entwicklung](#app-entwicklung)
+- [Lizensierung](#lizensierung)
+- [Kontakt](#kontakt)
 
-## About
+> **Wichtig:** Diese App steht in keinem Kontakt zu der Zeitung oder zu deren Herausgebern.
 
-This repository hosts a Kotlin-based app that provides access to news and articles from "Das Parlament".  
-> **Note:** This app is not affiliated with or endorsed by the official newspaper or its publishers.
+## English information
 
-## Features
+This is an inofficall app for the german Newspaper *Das Parlament*. Since this app is for an german newspaper, i rewrote the README to be german as well. 
 
-- 📰 Browse the latest news from "Das Parlament"
-- ⚡ Built with Kotlin for Android
-- 📖 Integrated newspaper reader
-- 🌙 Dark Mode support (Material3 Design)
-- 🚀 Fast and intuitive UI
+## Funktionen
 
-## Getting Started
+- 📰 Lade alle Ausgaben von "Das Parlament" auf dein Handy
+- 📖 Nutze den integrierten PDF-Reader für mehr Komfort
+- 🌙 Dunkler Modus & Material3 Designsprache
 
-To run this project locally:
+## App-Entwicklung
 
-1. **Clone the repository**
+Um dieses Projekt lokal auszuführen:
+
+1. **Klone das Repository**
    ```bash
    git clone https://github.com/LarsSkarlax/DasParlament.git
    ```
-2. **Open in Android Studio**  
-   File > Open > Select the cloned folder
+2. **Öffne es in Android Studio**  
+   File > Open > *Wähle den geclonten Ordner aus*
 3. **Build & Run**  
-   Click the **Run** button or use `Shift+F10`.
+   Drücke auf den **Run** button oder drücke `Shift+F10`.
 
-> **Requirements:**  
-> - Android Studio (Chipmunk or newer)  
+> **Vorraussetzungen:**  
+> - Android Studio (Chipmunk oder neuer)  
 > - Android SDK 33+  
-> - Internet connection
+> - Internet-Verbidnung
 
-## Usage
+Falls du an der App mitarbeiten möchtest, erstelle gerne einen neuen Branch und öffne ein Pull-Request sobald du fertig bist.
 
-- Launch the app to start browsing news articles from "Das Parlament".
-- Use the integrated reader for a seamless reading experience.
-- Toggle Dark Mode in your system settings to switch themes.
-
-<!-- Optionally, include animated GIFs or screenshots demonstrating the app. -->
-
-## Contributing
-
-Contributions are welcome! 🚀  
-If you have suggestions or want to help improve the app, please open an issue or pull request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## Disclaimer
-
-This is an unofficial project and is not associated with the official "Das Parlament" publication.
-
-## License
+## Lizensierung
 
 *The license for this project is not yet specified.*
 
-## Contact
+## Kontakt
 
-Questions, suggestions, or feedback?  
-Feel free to [open an issue](https://github.com/LarsSkarlax/DasParlament/issues) or contact [@LarsSkarlax](https://github.com/LarsSkarlax).
+Fragen, Empfehlungen, oder Feedback?  
+Melde dich gerne einfach per [öffnen eines Issues](https://github.com/LarsSkarlax/DasParlament/issues) oder direkt bei [@LarsSkarlax](https://github.com/LarsSkarlax).
