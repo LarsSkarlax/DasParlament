@@ -13,7 +13,7 @@
 
 ---
 
-## Table of Contents
+## Inhaltsangabe
 
 - [English information](#english-information)
 - [Funktionen](#funktionen)
