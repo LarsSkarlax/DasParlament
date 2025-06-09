@@ -32,6 +32,7 @@ fun processHtmlAndSave(html: String, context: Context) {
             ?.trim()
             ?.replace("\\s+".toRegex(), "")
             ?: ""
+        Log.d("DEBUG", "rawHeadline: $rawHeadline, parts: $parts, issuePart: $issuePart")
 
         val title = el.selectFirst("div.epaper__text")?.text()?.trim() ?: ""
         val imgSrc = el.selectFirst("div.epaper__image img")?.attr("src") ?: ""
@@ -51,5 +52,5 @@ fun processHtmlAndSave(html: String, context: Context) {
         fos.write(arr.toString(2).toByteArray())
     }
 
-    Log.d("FINISHED", "Finisehd html processing succesfully and wrote to file")
+    Log.d("FINISHED", "Finished html processing successfully and wrote to file")
 }
