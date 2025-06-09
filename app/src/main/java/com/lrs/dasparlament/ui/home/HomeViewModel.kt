@@ -152,8 +152,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun refreshHomeList() {
-        Log.d("CALLED", "refreshHomeList called successfully")
         loadPdfItems()
+        Log.d("CALLED", "refreshHomeList called successfully")
     }
 
 }
