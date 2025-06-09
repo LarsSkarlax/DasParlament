@@ -43,10 +43,12 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.fab.setOnClickListener { view ->
+            Log.d("CLICKED FAB", "CLICKED FAB")
             lifecycleScope.launch {
+                Log.d("LAUNCHED lifecycleScope", "LAUNCHED lifecycleScope")
                 downloadHtml("https://www.das-parlament.de/e-paper") { html ->
                     // Log and process the HTML
-                    Log.d("HTML is downloaded", html.take(500)) // Preview first 500 chars
+                    Log.d("HTML is downloaded", html.take(300)) // Preview first 500 chars
 
                     // Call the function to extract & save JSON
                     processHtmlAndSave(html, context = this@MainActivity)
