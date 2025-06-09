@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener { view ->
             Log.d("CLICKED FAB", "CLICKED FAB")
+            if (!this.isNetworkAvailable()) {
+                Snackbar.make(view, "Keine Internet‐Verbindung!", Snackbar.LENGTH_LONG)
+                    .setAnchorView(R.id.fab)
+                    .show()
+                return@setOnClickListener
+            }
             lifecycleScope.launch {
                 Log.d("LAUNCHED lifecycleScope", "LAUNCHED lifecycleScope")
                 downloadHtml("https://www.das-parlament.de/e-paper") { html ->
