@@ -12,7 +12,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.artifex.mupdf.viewer.DocumentActivity
 import com.google.android.material.snackbar.Snackbar
 import com.lrs.dasparlament.R

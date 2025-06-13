@@ -1,6 +1,5 @@
 package com.lrs.dasparlament.ui.settings
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater

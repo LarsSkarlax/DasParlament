@@ -1,10 +1,7 @@
 package com.lrs.dasparlament
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
-import com.google.android.filament.View
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
